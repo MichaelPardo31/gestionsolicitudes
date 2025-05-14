@@ -1,12 +1,7 @@
 import React, { useState, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { enviarSolicitud } from '../mock/api';
-import { useNavigate } from 'react-router-dom';
-import { 
-  FaFileAlt,
-  FaMoneyBillWave,
-  FaExternalLinkAlt
-} from 'react-icons/fa';
+import { FaExternalLinkAlt } from 'react-icons/fa';
 import styles from './SolicitudesManager.module.css';
 
 // Imágenes para todas las categorías
@@ -19,10 +14,14 @@ import estadoImg from '../assets/estado.jpg';
 import certificadoImg from '../assets/certificado.jpeg';
 import cancelacionImg from '../assets/cancelacion.jpeg';
 import datosImg from '../assets/datos.jpg';
+import horariosImg from '../assets/horarios.jpg';
+import notasImg from '../assets/notas.jpg';
+import cambioGrupoImg from '../assets/programa.jpg';
+import programasImg from '../assets/beca.jpg';
+import docenteImg from '../assets/datos.jpg';
 
 const SolicitudesManager = () => {
   const { user } = useContext(AuthContext);
-  const navigate = useNavigate();
 
   // Estados del formulario
   const [selectedCategory, setSelectedCategory] = useState('academicas');
@@ -34,11 +33,39 @@ const SolicitudesManager = () => {
   // Tipos de solicitudes disponibles
   const tiposSolicitudes = {
     academicas: [
-      { titulo: 'Horarios', tipo: 'formulario' },
-      { titulo: 'Cambio de grupo', tipo: 'formulario' },
-      { titulo: 'Notas', tipo: 'formulario' },
-      { titulo: 'Información de docente', tipo: 'formulario' },
-      { titulo: 'Programas académicos', tipo: 'formulario' }
+      { 
+        titulo: 'Horarios', 
+        tipo: 'enlace', 
+        imagen: horariosImg,
+        link: 'https://app.udem.edu.co/ConsultasServAcadem/',
+        descripcion: 'Consulta tus horarios académicos'
+      },
+      { 
+        titulo: 'Cambio de grupo', 
+        tipo: 'enlace', 
+        imagen: cambioGrupoImg,
+        link: 'https://app.udem.edu.co/AjusteMatricPre/',
+        descripcion: 'Solicita cambio de grupo o materia'
+      },
+      { 
+        titulo: 'Notas', 
+        tipo: 'enlace', 
+        imagen: notasImg,
+        link: 'https://app.udem.edu.co/ConsultasServAcadem/',
+        descripcion: 'Consulta tus calificaciones'
+      },
+      { 
+        titulo: 'Información de docente', 
+        tipo: 'formulario',
+        imagen: docenteImg,
+        descripcion: 'Solicita información sobre profesores'
+      },
+      { 
+        titulo: 'Programas académicos', 
+        tipo: 'formulario',
+        imagen: programasImg,
+        descripcion: 'Consulta información sobre programas'
+      }
     ],
     administrativas: [
       { 
@@ -62,21 +89,62 @@ const SolicitudesManager = () => {
         link: 'https://app.udem.edu.co/ActualizacionDatos/login.html',
         descripcion: 'Solicita actualización de datos personales'
       },
+      { 
+        titulo: 'Solicitud de documentos', 
+        tipo: 'formulario',
+        descripcion: 'Solicita documentos oficiales'
+      },
     ],
     pqrsf: [
-      { titulo: 'Petición', tipo: 'formulario' },
-      { titulo: 'Queja', tipo: 'formulario' },
-      { titulo: 'Reclamo', tipo: 'formulario' },
-      { titulo: 'Sugerencia', tipo: 'formulario' },
-      { titulo: 'Felicitación', tipo: 'formulario' }
+      { titulo: 'Petición', tipo: 'formulario', descripcion: 'Realiza una petición' },
+      { titulo: 'Queja', tipo: 'formulario', descripcion: 'Registra una queja' },
+      { titulo: 'Reclamo', tipo: 'formulario', descripcion: 'Presenta un reclamo' },
+      { titulo: 'Sugerencia', tipo: 'formulario', descripcion: 'Envía una sugerencia' },
+      { titulo: 'Felicitación', tipo: 'formulario', descripcion: 'Envía una felicitación' }
     ],
     financieras: [
-      { titulo: 'Becas', tipo: 'enlace', imagen: becaImg, link: 'https://admisiones.udemedellin.edu.co/becas-descuentos-y-financiacion-de-pregrado/' },
-      { titulo: 'Pago matrícula', tipo: 'enlace', imagen: pagoImg, link: 'https://app.udem.edu.co/PagosEnLinea/' },
-      { titulo: 'Pago servicios extracurriculares', tipo: 'enlace', imagen: PagoextraImg, link: 'https://app.udem.edu.co/PagosEnLinea/' },
-      { titulo: 'Reembolsos', tipo: 'enlace', imagen: reembolsoImg, link: 'https://app.udem.edu.co/PagosEnLinea/index.html' },
-      { titulo: 'Convenios financieros', tipo: 'enlace', imagen: convenioImg, link: 'https://app.udem.edu.co/ConsultasServAcadem/' },
-      { titulo: 'Estado de cuenta', tipo: 'enlace', imagen: estadoImg, link: 'https://app.udem.edu.co/ConsultasServAcadem/' }
+      { 
+        titulo: 'Becas', 
+        tipo: 'enlace', 
+        imagen: becaImg, 
+        link: 'https://admisiones.udemedellin.edu.co/becas-descuentos-y-financiacion-de-pregrado/',
+        descripcion: 'Información sobre becas y descuentos'
+      },
+      { 
+        titulo: 'Pago matrícula', 
+        tipo: 'enlace', 
+        imagen: pagoImg, 
+        link: 'https://app.udem.edu.co/PagosEnLinea/',
+        descripcion: 'Realiza el pago de matrícula'
+      },
+      { 
+        titulo: 'Pago servicios extracurriculares', 
+        tipo: 'enlace', 
+        imagen: PagoextraImg, 
+        link: 'https://app.udem.edu.co/PagosEnLinea/',
+        descripcion: 'Pago de servicios adicionales'
+      },
+      { 
+        titulo: 'Reembolsos', 
+        tipo: 'enlace', 
+        imagen: reembolsoImg, 
+        link: 'https://app.udem.edu.co/PagosEnLinea/index.html',
+        descripcion: 'Solicitud de reembolsos'
+      },
+      { 
+        titulo: 'Convenios financieros', 
+        tipo: 'enlace', 
+        imagen: convenioImg, 
+        link: 'https://app.udem.edu.co/ConsultasServAcadem/',
+        descripcion: 'Información sobre convenios'
+      },
+      { 
+        titulo: 'Estado de cuenta', 
+        tipo: 'enlace', 
+        imagen: estadoImg, 
+        link: 'https://app.udem.edu.co/ConsultasServAcadem/',
+        descripcion: 'Consulta tu estado financiero'
+      }
     ]
   };
 
@@ -124,7 +192,7 @@ const SolicitudesManager = () => {
         <h2 className={styles.managerTitle}>Gestión de Solicitudes</h2>
       </div>
 
-      <div className="p-6">
+      <div className={styles.mainContent}>
         {/* Selector de categoría */}
         <div className={styles.categoryTabs}>
           {Object.keys(tiposSolicitudes).map((cat) => (
@@ -172,25 +240,24 @@ const SolicitudesManager = () => {
                 className={styles.requestCard}
               >
                 {solicitud.imagen && (
-                  <div className={styles.cardImage}>
-                    <img src={solicitud.imagen} alt={solicitud.titulo} />
+                  <div className={styles.cardImageContainer}>
+                    <img 
+                      src={solicitud.imagen} 
+                      alt={solicitud.titulo} 
+                      className={styles.cardImage}
+                    />
                   </div>
                 )}
-                {solicitud.icono && (
-                  <div className={styles.cardIcon}>
-                    {solicitud.icono}
+                <div className={styles.cardTextContent}>
+                  <h3 className={styles.cardTitle}>
+                    {solicitud.titulo}
+                    {solicitud.tipo === 'enlace' && <FaExternalLinkAlt className={styles.externalLinkIcon} />}
+                  </h3>
+                  <p className={styles.cardDescription}>{solicitud.descripcion}</p>
+                  <div className={styles.clickHint}>
+                    {solicitud.tipo === 'enlace' ? 'Haz clic para acceder' : 'Haz clic para solicitar'}
                   </div>
-                )}
-                <h3 className={styles.requestTitle}>
-                  {solicitud.titulo}
-                  {solicitud.tipo === 'enlace' && <FaExternalLinkAlt className={styles.externalLinkIcon} />}
-                </h3>
-                <p className={styles.requestDescription}>
-                  {solicitud.descripcion || 'Haz clic para solicitar'}
-                </p>
-                <p className={styles.requestPrompt}>
-                  {solicitud.tipo === 'enlace' ? 'Haz clic para acceder' : 'Haz clic para solicitar'}
-                </p>
+                </div>
               </div>
             ))}
           </div>
