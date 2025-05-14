@@ -1,0 +1,153 @@
+/* ---------- Animaciones (sin cambios) ---------- */
+@keyframes float   { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
+@keyframes gradientBG {0%{background-position:0 50%}50%{background-position:100% 50%}100%{background-position:0 50%}}
+@keyframes shake   {0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-5px)}40%,80%{transform:translateX(5px)}}
+
+/* ---------- Colores base ---------- */
+:root{
+  --udem-red:      #b71c1c;   /* rojo institucional principal */
+  --udem-red-dark: #8f0b1d;   /* rojo más oscuro para hover */
+  --panel-bg:      #f4efec;   /* fondo crema/gris muy claro del panel */
+  --text-dark:     #111;      /* textos principales */
+  --text-muted:    #6e6e6e;   /* textos secundarios */
+  --border-input:  #d4d4d4;   /* borde gris input */
+}
+
+/* ---------- Layout ---------- */
+.loginContainer{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  background-color:var(--udem-red-dark);   /* fondo rojo oscuro */
+  /* la textura la puedes activar cuando la tengas */
+}
+
+.loginCard{
+  width:100%;
+  max-width:420px;
+  padding:2.5rem;
+  background:white;
+  border-radius:8px;
+  box-shadow:0 8px 25px rgba(0,0,0,.25);
+  backdrop-filter:blur(6px);
+  transition:.4s;
+}
+
+.loginCard:hover{
+  transform:translateY(-4px);
+  box-shadow:0 12px 32px rgba(0,0,0,.28);
+}
+
+/* ---------- Encabezado ---------- */
+.loginHeader{ text-align:center;margin-bottom:2rem }
+
+.loginLogo {
+  width: 180px;
+  height: auto;
+  margin: 0 auto 1.5rem;
+  display: block;
+}
+
+.loginTitle{
+  font-size:1.6rem;
+  font-weight:700;
+  margin-bottom:.3rem;
+  color:var(--udem-red);
+}
+
+.loginSubtitle{
+  color:var(--text-muted);
+  font-size:.9rem;
+}
+
+/* ---------- Formulario ---------- */
+.loginForm{ display:flex;flex-direction:column;gap:1.5rem }
+
+.inputGroup{ position:relative }
+
+.inputLabel{
+  position:absolute;top:-10px;left:15px;
+  background:white;
+  padding:0 5px;
+  font-size:.9rem;
+  font-weight: 500;
+  color:var(--udem-red);
+}
+
+.inputField{
+  width:100%;
+  padding:14px;
+  border:2px solid var(--border-input);
+  border-radius:6px;
+  font-size:1rem;
+  background-color: #f9f9f9;
+  color: #333;
+  transition:border .25s,box-shadow .25s;
+}
+
+.inputField:focus{
+  border-color:var(--udem-red);
+  box-shadow:0 0 0 2px rgba(175,13,36,.25);
+  outline:none;
+}
+
+/* ---------- Botón ---------- */
+.submitButton{
+  padding:14px;
+  border:none;
+  border-radius:6px;
+  background:var(--udem-red);
+  color:#fff;
+  font-size:1rem;
+  font-weight:600;
+  cursor:pointer;
+  transition:background .25s,transform .25s,box-shadow .25s;
+  position:relative;
+  overflow:hidden;
+}
+
+.submitButton:hover{
+  background:var(--udem-red-dark);
+  transform:translateY(-2px);
+  box-shadow:0 6px 16px rgba(0,0,0,.18);
+}
+
+.submitButton:disabled{
+  background:#c5c5c5;
+  cursor:not-allowed;
+  box-shadow:none;
+  transform:none!important;
+}
+
+.submitButton::after{
+  content:'';
+  position:absolute;
+  top:-50%;left:-60%;
+  width:200%;height:200%;
+  background:rgba(255,255,255,.15);
+  transform:rotate(30deg);
+  transition:left .3s;
+}
+.submitButton:hover::after{ left:100% }
+
+/* ---------- Mensaje de error ---------- */
+.errorMessage{
+  padding:12px;
+  background:rgba(175,13,36,.08);
+  color:var(--udem-red);
+  border-radius:6px;
+  border-left:4px solid var(--udem-red);
+  animation:shake .5s;
+  text-align:center;
+}
+
+/* ---------- Olvidé contraseña ---------- */
+.forgotPassword{text-align:right;margin-top:-1rem}
+.forgotPassword a{
+  color:var(--text-muted);
+  font-size:.85rem;
+  text-decoration:none;
+  transition:color .25s
+}
+.forgotPassword a:hover{ color:var(--udem-red) }

@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/static/css/main.a2f5163a.css",
+    "main.js": "/static/js/main.233d6925.js",
+    "static/media/pago.jpg": "/static/media/pago.8d4926fc505d6ab44550.jpg",
+    "static/media/convenio.jpg": "/static/media/convenio.e52d742aa0637c742257.jpg",
+    "static/media/pagoextra.jpg": "/static/media/pagoextra.7e685ea425382d0a39d2.jpg",
+    "static/media/beca.jpg": "/static/media/beca.5e5fef53aa5b26c886cb.jpg",
+    "static/media/reembolso.jpg": "/static/media/reembolso.d42dc8b796045434fd9c.jpg",
+    "static/media/estado.jpg": "/static/media/estado.ddb70fe69648601058b3.jpg",
+    "static/media/udem-logo.png": "/static/media/udem-logo.4d9b53f35c92b0b41cbf.png",
+    "index.html": "/index.html",
+    "main.a2f5163a.css.map": "/static/css/main.a2f5163a.css.map",
+    "main.233d6925.js.map": "/static/js/main.233d6925.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.a2f5163a.css",
+    "static/js/main.233d6925.js"
+  ]
+}

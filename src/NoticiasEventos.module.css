@@ -1,0 +1,64 @@
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.tabContainer {
+  display: flex;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.tab {
+  padding: 10px 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 16px;
+  color: #4a5568;
+  transition: all 0.3s;
+}
+
+.tab:hover {
+  color: #2d3748;
+}
+
+.activeTab {
+  color: #e53e3e;
+  font-weight: 600;
+  border-bottom: 2px solid #e53e3e;
+}
+
+.content {
+  padding: 20px 0;
+}
+
+.card {
+  background: white;
+  padding: 20px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+h2 {
+  color: #2d3748;
+  margin-bottom: 20px;
+}
+
+h3 {
+  color: #2d3748;
+  margin-bottom: 10px;
+}
+
+p {
+  color: #4a5568;
+  line-height: 1.6;
+  margin-bottom: 10px;
+}
+
+small {
+  color: #718096;
+  font-size: 14px;
+}

@@ -1,0 +1,413 @@
+/* Estilos base */
+.adminContainer {
+    min-height: 100vh;
+    background-color: #b71c1c;
+    background-image: linear-gradient(rgba(183, 28, 28, 0.9), rgba(183, 28, 28, 0.9));
+    background-size: cover;
+    color: white;
+    font-family: Arial, sans-serif;
+  }
+  
+  /* Estilos para las secciones del menú */
+  .sectionContainer {
+    background-color: white;
+    border-radius: 10px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    color: #333;
+  }
+  
+  .sectionTitle {
+    font-size: 1.8rem;
+    color: #b71c1c;
+    margin-bottom: 1rem;
+    font-weight: 600;
+  }
+  
+  .sectionDescription {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 2rem;
+  }
+  
+  .comingSoon {
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: center;
+    color: #666;
+  }
+  
+  .comingSoon p {
+    font-size: 1.2rem;
+    font-weight: 500;
+  }
+  
+  /* Header */
+  .adminHeader {
+    background-color: white;
+    color: black;
+    padding: 1rem;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+  }
+  
+  .logoContainer {
+    display: flex;
+    align-items: center;
+  }
+  
+  .logo {
+    height: 50px;
+    margin-right: 1rem;
+  }
+  
+  .headerContent {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .adminTitle {
+    font-size: 2rem;
+    font-weight: 700;
+    color: black;
+  }
+  
+  .userInfo {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+  }
+  
+  .logoutButton {
+    padding: 0.5rem 1rem;
+    background-color: transparent;
+    color: black;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .logoutButton:hover {
+    background-color: #f3f4f6;
+  }
+  
+  /* Contenido principal */
+  .mainContent {
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+  }
+  
+  @media (min-width: 768px) {
+    .mainContent {
+      padding: 2rem;
+    }
+  }
+  
+  /* Filtros */
+  .filterContainer {
+    padding: 1rem;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    background-color: transparent;
+  }
+  
+  .filterButtons {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .filterButton {
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    transition: all 0.2s;
+    font-size: 0.875rem;
+  }
+  
+  .filterButtonActive {
+    background-color: white;
+    color: #b71c1c;
+    font-weight: 500;
+    box-shadow: inset 0 2px 4px 0 rgba(0, 0, 0, 0.05);
+  }
+  
+  .filterButtonInactive {
+    background-color: rgba(255, 255, 255, 0.2);
+    color: white;
+  }
+  
+  .filterButtonInactive:hover {
+    background-color: #e5e7eb;
+  }
+  
+  /* Listado de solicitudes */
+  .requestCard {
+    background-color: rgba(183, 28, 28, 0.8);
+    border-radius: 0.5rem;
+    margin-bottom: 1rem;
+    overflow: hidden;
+    border-top: 1px solid #e5e7eb;
+  }
+  
+  .requestItem {
+    padding: 1.5rem;
+    transition: background-color 0.2s;
+    background-color: rgba(255, 255, 255, 0.05);
+    margin-bottom: 1rem;
+    border-radius: 0.5rem;
+    position: relative;
+  }
+  
+  .requestItem:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+  }
+  
+  .requestHeader {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+  
+  @media (min-width: 768px) {
+    .requestHeader {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+  }
+  
+  .requestTitle {
+    font-weight: 600;
+    font-size: 1.125rem;
+    color: white;
+    margin-bottom: 0.25rem;
+  }
+  
+  .requestMeta {
+    font-size: 0.875rem;
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 0.75rem;
+  }
+  
+  .requestStatus {
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+  
+  .statusPending {
+    background-color: #ff9800;
+    color: white;
+  }
+  
+  .statusApproved {
+    background-color: #4caf50;
+    color: white;
+  }
+  
+  .statusRejected {
+    background-color: #f44336;
+    color: white;
+  }
+  
+  .confirmadoContainer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
+  }
+  
+  .confirmadoTag {
+    background-color: #4caf50;
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    font-weight: 500;
+  }
+  
+  .actionContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    margin-top: 1rem;
+    gap: 1rem;
+  }
+  
+  .estadoButton {
+    background-color: #f44336;
+    color: white;
+    padding: 0.5rem 1.5rem;
+    border-radius: 0.25rem;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .requestDescription {
+    margin-top: 0.75rem;
+    color: white;
+    white-space: pre-line;
+  }
+  
+  .requestResponse {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 0.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+  
+  .responseLabel {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: white;
+  }
+  
+  /* Acciones */
+  .requestActions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  @media (min-width: 768px) {
+    .requestActions {
+      width: 12rem;
+    }
+  }
+  
+  .actionButton {
+    width: 100%;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    font-size: 0.875rem;
+    transition: background-color 0.2s;
+  }
+  
+  .approveButton {
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .approveButton:hover {
+    background-color: #a7f3d0;
+  }
+  
+  .respondButton {
+    background-color: #f5f5f5;
+    color: #333;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .respondButton:hover {
+    background-color: #fde68a;
+  }
+  
+  .rejectButton {
+    background-color: #f44336;
+    color: white;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .rejectButton:hover {
+    background-color: #fecaca;
+  }
+  
+  /* Formulario de respuesta */
+  .responseForm {
+    margin-top: 1rem;
+    padding: 1rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  
+  .responseInput {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #333;
+    border-radius: 0.5rem;
+    resize: vertical;
+    min-height: 6rem;
+  }
+  
+  .responseTextarea:focus {
+    outline: none;
+    border-color: #8b5cf6;
+    box-shadow: 0 0 0 2px #ddd6fe;
+  }
+  
+  .formActions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+  }
+  
+  .cancelButton {
+    padding: 0.5rem 1rem;
+    background-color: #e5e7eb;
+    color: #4b5563;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s;
+  }
+  
+  .cancelButton:hover {
+    background-color: #d1d5db;
+  }
+  
+  .submitButton {
+    padding: 0.5rem 1rem;
+    background-color: white;
+    color: #b71c1c;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s;
+    font-weight: 500;
+    border: none;
+    cursor: pointer;
+    align-self: flex-end;
+  }
+  
+  .submitButtonActive {
+    background-color: #7c3aed;
+    color: white;
+  }
+  
+  .submitButtonActive:hover {
+    background-color: #6d28d9;
+  }
+  
+  .submitButtonDisabled {
+    background-color: #e5e7eb;
+    color: #9ca3af;
+    cursor: not-allowed;
+  }
+  
+  /* Estados de carga y vacío */
+  .loadingState {
+    padding: 2rem;
+    text-align: center;
+    color: #6b7280;
+  }
+  
+  .emptyState {
+    padding: 2rem;
+    text-align: center;
+    color: #6b7280;
+  }

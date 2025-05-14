@@ -1,0 +1,23 @@
+{
+    "noticias": [
+      {
+        "titulo": "Semana de la Innovación",
+        "contenido": "Charlas y talleres sobre innovación tecnológica del 15 al 19 de mayo."
+      },
+      {
+        "titulo": "Nuevo laboratorio de IA",
+        "contenido": "Ya puedes inscribirte para usar el nuevo laboratorio de Inteligencia Artificial."
+      }
+    ],
+    "eventos": [
+      {
+        "titulo": "Inicio de semestre",
+        "fecha": "2025-07-22"
+      },
+      {
+        "titulo": "Feria laboral UdeM",
+        "fecha": "2025-09-10"
+      }
+    ]
+  }
+  

@@ -1,0 +1,23 @@
+{
+    "noticias": [
+      {
+        "titulo": "Semana de la Investigación UdeM",
+        "contenido": "Participa en ponencias, talleres y exposiciones del 10 al 14 de mayo."
+      },
+      {
+        "titulo": "Actualización del Campus Virtual",
+        "contenido": "El 12 de mayo se realizará una mejora en la plataforma virtual."
+      }
+    ],
+    "eventos": [
+      {
+        "titulo": "Inicio de clases segundo semestre",
+        "fecha": "2025-07-22"
+      },
+      {
+        "titulo": "Feria de prácticas profesionales",
+        "fecha": "2025-08-10"
+      }
+    ]
+  }
+  

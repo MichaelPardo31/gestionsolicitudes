@@ -1,0 +1,152 @@
+/* Estilos base */
+.loginContainer {
+    display: flex;
+    min-height: 100vh;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  /* Sección del formulario */
+  .loginForm {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem 4rem;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  }
+  
+  .loginHeader {
+    margin-bottom: 2.5rem;
+    text-align: center;
+  }
+  
+  .loginTitle {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+  }
+  
+  .loginSubtitle {
+    font-size: 1rem;
+    color: #7f8c8d;
+  }
+  
+  .formGroup {
+    margin-bottom: 1.5rem;
+  }
+  
+  .formLabel {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: #34495e;
+  }
+  
+  .formInput {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 2px solid #dfe6e9;
+    border-radius: 8px;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+  }
+  
+  .formInput:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2);
+    outline: none;
+  }
+  
+  .loginButton {
+    width: 100%;
+    padding: 1rem;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .loginButton:hover {
+    background-color: #2980b9;
+  }
+  
+  /* Sección del clima/información */
+  .loginInfo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 3rem;
+    background-color: #2c3e50;
+    color: white;
+  }
+  
+  .weatherInfo {
+    text-align: right;
+  }
+  
+  .weatherTemp {
+    font-size: 3rem;
+    font-weight: 300;
+  }
+  
+  .weatherDesc {
+    font-size: 1.2rem;
+    opacity: 0.8;
+  }
+  
+  .timeInfo {
+    margin-top: auto;
+    text-align: right;
+  }
+  
+  .currentTime {
+    font-size: 2.5rem;
+    font-weight: 300;
+  }
+  
+  .currentDate {
+    font-size: 1.2rem;
+    opacity: 0.8;
+  }
+  
+  .searchContainer {
+    margin-top: 2rem;
+  }
+  
+  .searchInput {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: none;
+    border-radius: 8px;
+    color: white;
+    font-size: 1rem;
+  }
+  
+  .searchInput::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
+  
+  .languageSelector {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+  
+  .languageOption {
+    padding: 0.3rem 0.8rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    cursor: pointer;
+  }
+  
+  .languageOption.active {
+    background: #3498db;
+  }
