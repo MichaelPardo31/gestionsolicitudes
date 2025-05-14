@@ -89,11 +89,6 @@ const SolicitudesManager = () => {
         link: 'https://app.udem.edu.co/ActualizacionDatos/login.html',
         descripcion: 'Solicita actualización de datos personales'
       },
-      { 
-        titulo: 'Solicitud de documentos', 
-        tipo: 'formulario',
-        descripcion: 'Solicita documentos oficiales'
-      },
     ],
     pqrsf: [
       { titulo: 'Petición', tipo: 'formulario', descripcion: 'Realiza una petición' },
