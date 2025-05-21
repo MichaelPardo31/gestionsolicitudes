@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
-import { getSolicitudes, actualizarEstado, resolverSolicitud } from '../mock/api';
 import RespuestasAutomaticas from './RespuestasAutomaticas';
 import styles from './AdminPanel.module.css';
 import themeStyles from './UdemTheme.module.css';
@@ -17,18 +16,17 @@ const AdminPanel = () => {
 
   // Cargar solicitudes al montar el componente
   useEffect(() => {
-    const cargarSolicitudes = () => {
+    const cargarSolicitudes = async () => {
       setIsLoading(true);
       try {
-        const response = getSolicitudes();
-        if (response.success) {
-          setSolicitudes(response.data);
-        } else {
-          console.error("Error al cargar solicitudes:", response.error);
-          setSolicitudes([]);
+        const response = await fetch('http://localhost:5000/api/solicitudes');
+        if (!response.ok) {
+          throw new Error('Error al cargar solicitudes');
         }
+        const data = await response.json();
+        setSolicitudes(data);
       } catch (error) {
-        console.error("Error al cargar solicitudes:", error);
+        console.error('Error al cargar solicitudes:', error);
         setSolicitudes([]);
       } finally {
         setIsLoading(false);
@@ -45,36 +43,46 @@ const AdminPanel = () => {
   });
 
   // Cambiar estado de una solicitud
-  const cambiarEstado = (id, nuevoEstado) => {
+  const cambiarEstado = async (id, nuevoEstado) => {
     try {
-      const result = actualizarEstado(id, nuevoEstado);
-      if (result.success) {
-        const response = getSolicitudes();
-        if (response.success) {
-          setSolicitudes(response.data);
-        }
+      const response = await fetch(`http://localhost:5000/api/solicitudes/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ estado: nuevoEstado, respuesta: '' })
+      });
+      if (!response.ok) {
+        throw new Error('Error al actualizar estado');
       }
+      const updatedSolicitud = await response.json();
+      setSolicitudes(prev =>
+        prev.map(s => (s.id === updatedSolicitud.id ? updatedSolicitud : s))
+      );
     } catch (error) {
-      console.error("Error al actualizar estado:", error);
+      console.error('Error al actualizar estado:', error);
     }
   };
 
   // Responder a una solicitud
-  const handleResponder = (id) => {
+  const handleResponder = async (id) => {
     if (!respuestaActual) return;
-    
+
     try {
-      const result = resolverSolicitud(id, respuestaActual);
-      if (result.success) {
-        const response = getSolicitudes();
-        if (response.success) {
-          setSolicitudes(response.data);
-        }
+      const response = await fetch(`http://localhost:5000/api/solicitudes/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ estado: 'respondida', respuesta: respuestaActual })
+      });
+      if (!response.ok) {
+        throw new Error('Error al responder solicitud');
       }
+      const updatedSolicitud = await response.json();
+      setSolicitudes(prev =>
+        prev.map(s => (s.id === updatedSolicitud.id ? updatedSolicitud : s))
+      );
       setRespuestaActual('');
       setSelectedSolicitud(null);
     } catch (error) {
-      console.error("Error al responder:", error);
+      console.error('Error al responder:', error);
     }
   };
 

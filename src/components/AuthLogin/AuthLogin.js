@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { MOCK_USERS } from '../mock/users';
+import { loginUser } from '../api/apiClient';
 import styles from './AuthLogin.module.css';
 
 const AuthLogin = ({ onLogin }) => {
@@ -7,20 +7,19 @@ const AuthLogin = ({ onLogin }) => {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    const user = MOCK_USERS.find(u => u.email === email);
-    
-    if (user) {
+    setError('');
+    try {
+      const user = await loginUser({ email, password });
       onLogin(user);
-    } else {
-      setError('Credenciales inválidas');
+    } catch (err) {
+      setError(err.error || 'Credenciales inválidas');
     }
   };
 
   return (
     <div className={styles.loginContainer}>  
-      {/* Sección del formulario */}
       <div className={styles.loginForm}>
         <div className={styles.loginHeader}>
           <h1 className={styles.loginTitle}>Bienvenido a la Universidad de Medellín</h1>
@@ -58,7 +57,6 @@ const AuthLogin = ({ onLogin }) => {
         </form>
       </div>
 
-      {/* Sección de información */}
       <div className={styles.loginInfo}>
         <div className={styles.weatherInfo}>
           <div className={styles.weatherTemp}>23°C</div>

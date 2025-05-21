@@ -6,6 +6,7 @@ import Register from './Register';
 import MainLayout from './MainLayout';
 import AdminPanel from './AdminPanel'; // Importa desde la carpeta
 import PublicLayout from './PublicLayout';
+import SolicitudesHistorial from './SolicitudesHistorial';
 
 const Router = () => {
   const { user, isAuthenticated } = useContext(AuthContext);
@@ -31,6 +32,16 @@ const Router = () => {
             ? (user?.rol === 'admin' ? <Navigate to="/admin" /> : <MainLayout />)
             : <PublicLayout />
         } 
+      />
+
+      {/* Ruta para historial de solicitudes de usuario */}
+      <Route 
+        path="/solicitudes-historial" 
+        element={
+          isAuthenticated && user?.rol !== 'admin'
+            ? <SolicitudesHistorial />
+            : <Navigate to={isAuthenticated ? "/" : "/login"} />
+        }
       />
 
       {/* Ruta para admin */}

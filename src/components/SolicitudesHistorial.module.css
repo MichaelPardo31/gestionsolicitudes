@@ -1,0 +1,22 @@
+.historialContainer {
+  padding: 1rem;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.solicitudesList {
+  list-style: none;
+  padding: 0;
+}
+
+.solicitudItem {
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  background-color: #f9f9f9;
+}
+
+.solicitudItem p {
+  margin: 0.3rem 0;
+}
