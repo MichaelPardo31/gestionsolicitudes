@@ -88,41 +88,162 @@ app.get('/api/solicitudes', (req, res) => {
 
 // Crear nueva solicitud
 app.post('/api/solicitudes', (req, res) => {
-  const { student_id, tipo, descripcion } = req.body;
+  const { 
+    student_id, 
+    tipo, 
+    descripcion, 
+    categoria, 
+    numero_radicado, 
+    archivos_adjuntos,
+    tiene_adjuntos
+  } = req.body;
+  
   if (!student_id || !tipo || !descripcion) {
     return res.status(400).json({ error: 'Faltan datos requeridos' });
   }
+  
   const fecha = new Date().toISOString();
-  const sql = 'INSERT INTO solicitudes (student_id, tipo, descripcion, estado, fecha) VALUES (?, ?, ?, ?, ?)';
-  const params = [student_id, tipo, descripcion, 'pendiente', fecha];
+  const estado = 'pendiente';
+  
+  // Extraer el número de radicado de la descripción si no se proporciona directamente
+  let radicado = numero_radicado || '';
+  if (!radicado && descripcion.includes('Radicado:')) {
+    const match = descripcion.match(/Radicado:\s*(PQRSF-\d{4}-\d{2}-\d{5})/);
+    if (match && match[1]) {
+      radicado = match[1];
+    }
+  }
+  
+  // Crear el historial de estados inicial
+  const historialEstados = JSON.stringify([{
+    estado: 'pendiente',
+    fecha: fecha,
+    comentario: 'Solicitud radicada'
+  }]);
+  
+  // Convertir archivos adjuntos a JSON si se proporcionan
+  const archivosAdjuntosJSON = archivos_adjuntos ? JSON.stringify(archivos_adjuntos) : null;
+  
+  const sql = `INSERT INTO solicitudes (
+    student_id, tipo, descripcion, estado, fecha, 
+    categoria, numero_radicado, archivos_adjuntos, 
+    tiene_adjuntos, historial_estados
+  ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+  
+  const params = [
+    student_id, 
+    tipo, 
+    descripcion, 
+    estado, 
+    fecha, 
+    categoria || null, 
+    radicado, 
+    archivosAdjuntosJSON, 
+    tiene_adjuntos ? 1 : 0, 
+    historialEstados
+  ];
+  
   db.run(sql, params, function(err) {
     if (err) {
+      console.error('Error al crear solicitud:', err);
       return res.status(500).json({ error: err.message });
     }
-    res.status(201).json({ id: this.lastID, student_id, tipo, descripcion, estado: 'pendiente', fecha });
+    
+    // Devolver la solicitud creada con todos sus campos
+    db.get('SELECT * FROM solicitudes WHERE id = ?', [this.lastID], (err, row) => {
+      if (err) {
+        return res.status(500).json({ error: err.message });
+      }
+      res.status(201).json(row);
+    });
   });
 });
 
 // Actualizar estado y respuesta de solicitud
 app.put('/api/solicitudes/:id', (req, res) => {
   const { id } = req.params;
-  const { estado, respuesta } = req.body;
-  const sql = 'UPDATE solicitudes SET estado = ?, respuesta = ? WHERE id = ?';
-  const params = [estado, respuesta || '', id];
-  db.run(sql, params, function(err) {
+  const { estado, respuesta, comentario } = req.body;
+  
+  // Primero obtenemos la solicitud actual para actualizar su historial
+  db.get('SELECT * FROM solicitudes WHERE id = ?', [id], (err, solicitud) => {
     if (err) {
       return res.status(500).json({ error: err.message });
     }
-    if (this.changes === 0) {
+    if (!solicitud) {
       return res.status(404).json({ error: 'Solicitud no encontrada' });
     }
-    // Devolver la solicitud actualizada
-    const sqlSelect = 'SELECT * FROM solicitudes WHERE id = ?';
-    db.get(sqlSelect, [id], (err, row) => {
+    
+    // Obtener el historial actual o crear uno nuevo si no existe
+    let historialEstados = [];
+    try {
+      historialEstados = solicitud.historial_estados ? JSON.parse(solicitud.historial_estados) : [];
+    } catch (e) {
+      console.warn('Error al parsear historial de estados:', e);
+    }
+    
+    // Añadir nuevo estado al historial
+    const fechaActual = new Date().toISOString();
+    historialEstados.push({
+      estado: estado || solicitud.estado,
+      fecha: fechaActual,
+      comentario: comentario || `Estado cambiado a ${estado || solicitud.estado}`
+    });
+    
+    // Preparar los campos a actualizar
+    let campos = {};
+    let params = [];
+    let sqlSet = [];
+    
+    // Añadir los campos que se van a actualizar
+    if (estado) {
+      sqlSet.push('estado = ?');
+      params.push(estado);
+      campos.estado = estado;
+    }
+    
+    if (respuesta !== undefined) {
+      sqlSet.push('respuesta = ?');
+      params.push(respuesta || '');
+      campos.respuesta = respuesta || '';
+      
+      // Si hay respuesta, también actualizamos la fecha de resolución
+      sqlSet.push('fecha_resolucion = ?');
+      params.push(fechaActual);
+      campos.fecha_resolucion = fechaActual;
+    }
+    
+    // Actualizar el historial de estados
+    sqlSet.push('historial_estados = ?');
+    params.push(JSON.stringify(historialEstados));
+    campos.historial_estados = JSON.stringify(historialEstados);
+    
+    // Añadir el ID al final de los parámetros
+    params.push(id);
+    
+    // Construir la consulta SQL
+    const sql = `UPDATE solicitudes SET ${sqlSet.join(', ')} WHERE id = ?`;
+    
+    // Ejecutar la actualización
+    db.run(sql, params, function(err) {
       if (err) {
         return res.status(500).json({ error: err.message });
       }
-      res.json(row);
+      if (this.changes === 0) {
+        return res.status(404).json({ error: 'No se pudo actualizar la solicitud' });
+      }
+      
+      // Devolver la solicitud actualizada
+      db.get('SELECT * FROM solicitudes WHERE id = ?', [id], (err, solicitudActualizada) => {
+        if (err) {
+          return res.status(500).json({ error: err.message });
+        }
+        
+        // Devolver la solicitud con los campos actualizados
+        res.json({
+          ...solicitudActualizada,
+          campos_actualizados: Object.keys(campos)
+        });
+      });
     });
   });
 });

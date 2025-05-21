@@ -41,14 +41,23 @@ export const AuthProvider = ({ children }) => {
     localStorage.removeItem('authUser');
   };
 
-  const register = (email, password, nombre, rol) => {
-    // Mantener la función de registro como estaba o actualizar si es necesario
-    return new Promise((resolve, reject) => {
-      setTimeout(() => {
-        // Aquí se podría implementar llamada a API para registro real
-        reject(new Error("Función de registro no implementada"));
-      }, 500);
-    });
+  const register = async (email, password, nombre, rol) => {
+    try {
+      // Importar la función de registro desde apiClient
+      const { registerUser } = await import('../api/apiClient');
+      
+      // Llamar a la API para registrar al usuario
+      const userData = await registerUser({ email, password, nombre, rol });
+      
+      // Autenticar al usuario después del registro exitoso
+      setUser(userData);
+      setIsAuthenticated(true);
+      localStorage.setItem('authUser', JSON.stringify(userData));
+      
+      return { success: true, user: userData };
+    } catch (error) {
+      return Promise.reject(error);
+    }
   };
 
   return (

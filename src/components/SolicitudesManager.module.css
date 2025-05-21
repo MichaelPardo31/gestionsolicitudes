@@ -348,3 +348,240 @@
   font-size: 0.8rem;
   color: #555;
 }
+
+/* Estilos para la sección de archivos adjuntos */
+.adjuntosSection {
+  margin-bottom: 20px;
+}
+
+/* Estilos para el modal de número de radicado */
+.modalOverlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7); /* Fondo semitransparente */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000; /* Asegurar que esté por encima de otros elementos */
+  
+  /* Propiedades cruciales para evitar parpadeo y asegurar estabilidad */
+  opacity: 1; /* Asegurar que sea visible */
+  pointer-events: auto; /* Permitir clics en el overlay */
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0); /* Promueve a capa separada para mejor rendimiento */
+  -webkit-transform: translateZ(0);
+  
+  /* Desactivar TODAS las animaciones y transiciones */
+  animation: none !important;
+  transition: none !important;
+}
+
+.modalContent {
+  background-color: white;
+  border-radius: 8px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  padding: 30px;
+  width: 90%;
+  max-width: 500px;
+  text-align: center;
+  /* Propiedades para evitar parpadeo */
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+  /* Asegurar que el modal permanezca estable */
+  position: relative;
+  overflow: hidden;
+}
+
+/* Estilos fijos para el modal sin animaciones */
+.modalOverlay.entering,
+.modalOverlay.entered,
+.modalOverlay.exiting,
+.modalOverlay.hidden {
+  display: flex;
+}
+
+.modalContent.entering,
+.modalContent.entered,
+.modalContent.exiting,
+.modalContent.hidden {
+  background-color: white;
+}
+
+.modalTitle {
+  color: #2c3e50;
+  font-size: 1.8rem;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.radicadoInfo {
+  margin: 25px 0;
+}
+
+.radicadoInfo p {
+  margin: 10px 0;
+  color: #555;
+  font-size: 1.1rem;
+}
+
+.numeroRadicado {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1a5276;
+  background-color: #eaf2f8;
+  padding: 15px;
+  border-radius: 6px;
+  margin: 15px auto;
+  border: 2px dashed #3498db;
+  max-width: 350px;
+  word-break: break-all;
+  user-select: text;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  cursor: text;
+}
+
+.modalButtons {
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+  margin-top: 25px;
+}
+
+.verHistorialButton {
+  background-color: #2980b9;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.verHistorialButton:hover {
+  background-color: #1a5276;
+}
+
+.cerrarModalButton {
+  background-color: #ecf0f1;
+  color: #2c3e50;
+  border: 1px solid #bdc3c7;
+  padding: 12px 20px;
+  border-radius: 4px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.cerrarModalButton:hover {
+  background-color: #d5dbdb;
+}
+
+.adjuntosContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.fileInput {
+  display: none;
+}
+
+.adjuntarButton {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1.25rem;
+  background-color: #f8f9fa;
+  color: #495057;
+  border: 2px dashed #ced4da;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  max-width: 250px;
+}
+
+.adjuntarButton:hover {
+  background-color: #e9ecef;
+  border-color: #adb5bd;
+}
+
+.adjuntarButton:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.adjuntosInfo {
+  font-size: 0.8rem;
+  color: #6c757d;
+  margin-top: 0.5rem;
+}
+
+.errorAdjunto {
+  color: #dc3545;
+  font-size: 0.85rem;
+  margin-top: 0.5rem;
+  padding: 0.5rem;
+  background-color: rgba(220, 53, 69, 0.1);
+  border-radius: 4px;
+}
+
+.adjuntosList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.adjuntoItem {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem;
+  background-color: white;
+  border: 1px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 0.9rem;
+}
+
+.fileIcon {
+  color: #6c757d;
+}
+
+.fileName {
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #495057;
+}
+
+.fileSize {
+  color: #6c757d;
+  font-size: 0.8rem;
+  margin-right: 0.5rem;
+}
+
+.removeFileButton {
+  background: none;
+  border: none;
+  color: #dc3545;
+  cursor: pointer;
+  padding: 0.25rem;
+  border-radius: 4px;
+  transition: all 0.2s ease;
+}
+
+.removeFileButton:hover {
+  background-color: rgba(220, 53, 69, 0.1);
+}

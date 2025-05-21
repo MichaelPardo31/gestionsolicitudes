@@ -20,12 +20,35 @@ export const registerUser = async (userData) => {
  * @returns {Promise<object>}
  */
 export const loginUser = async (credentials) => {
-  try {
-    const response = await axios.post('http://localhost:5000/api/students/login', credentials);
-    return response.data;
-  } catch (error) {
-    throw error.response?.data || { error: 'Error en el login' };
+  // Mock implementation for login
+  const { email, password } = credentials;
+  
+  // Predefined user accounts
+  const users = [
+    { id: 1, nombre: 'Administrador', email: 'admin@udem.edu.co', rol: 'admin' },
+    { id: 2, nombre: 'Estudiante Demo', email: 'estudiante@udem.edu.co', rol: 'estudiante' },
+    { id: 3, nombre: 'Profesor Demo', email: 'profesor@udem.edu.co', rol: 'profesor' }
+  ];
+  
+  // Find user with matching email
+  const user = users.find(u => u.email === email);
+  
+  // Simulate server delay
+  await new Promise(resolve => setTimeout(resolve, 300));
+  
+  if (!user) {
+    throw { error: 'Usuario no encontrado' };
   }
+  
+  // Simple password validation for demo purposes
+  // Admin password: admin123
+  // Other users: password123
+  if ((user.rol === 'admin' && password !== 'admin123') || 
+      (user.rol !== 'admin' && password !== 'password123')) {
+    throw { error: 'Contraseña incorrecta' };
+  }
+  
+  return user;
 };
 
 /**

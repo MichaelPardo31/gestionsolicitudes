@@ -1,9 +1,14 @@
 import React, { useState, useContext, useEffect, useRef } from 'react';
 import { AuthContext } from '../context/AuthContext';
+import { NotificationsContext } from '../context/NotificationsContext';
 import ChatbotAssistant from './ChatbotAssistant';
 import SolicitudesManager from './SolicitudesManager';
 import SolicitudesFinancierasE from './SolicitudesFinancierasE';
+import SolicitudesHistorial from './SolicitudesHistorial';
+import NotificationsPanel from './NotificationsPanel';
 import Foro from './Foro';
+import AdminPQRSFManager from './AdminPQRSFManager';
+import AdminSolicitudesManager from './AdminSolicitudesManager';
 import styles from './UdemTheme.module.css';
 import udemLogo from '../assets/udem-logo.png';
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa';
@@ -343,6 +348,7 @@ const HomeSection = () => {
 const MainLayout = ({ onCreateSolicitud }) => {
   const [currentView, setCurrentView] = useState('home');
   const { user, logout } = useContext(AuthContext);
+  const { loadNotifications } = useContext(NotificationsContext);
   const userRole = user?.rol || 'estudiante';
 
   return (
@@ -359,6 +365,7 @@ const MainLayout = ({ onCreateSolicitud }) => {
              userRole === 'administrativo' ? 'Portal Administrativo' : 'Centro de Ayuda'}
           </h1>
           <div className={styles.userInfo}>
+            <NotificationsPanel onNavigate={setCurrentView} />
             <span className={styles.userName}>{user?.nombre || 'Usuario'}</span>
             <button onClick={logout} className={styles.logoutButton}>
               Cerrar sesión
@@ -390,18 +397,32 @@ const MainLayout = ({ onCreateSolicitud }) => {
               Solicitudes
             </button>
             <button
+              onClick={() => setCurrentView('historial')}
+              className={`${styles.navButton} ${currentView === 'historial' ? styles.navButtonActive : ''}`}
+            >
+              Mi Historial
+            </button>
+            <button
               onClick={() => setCurrentView('foro')}
               className={`${styles.navButton} ${currentView === 'foro' ? styles.navButtonActive : ''}`}
             >
               Foro
             </button>
             {userRole === 'admin' && (
-              <button
-                onClick={() => setCurrentView('admin')}
-                className={`${styles.navButton} ${currentView === 'admin' ? styles.navButtonActive : ''}`}
-              >
-                Administración
-              </button>
+              <>
+                <button
+                  onClick={() => setCurrentView('admin')}
+                  className={`${styles.navButton} ${currentView === 'admin' ? styles.navButtonActive : ''}`}
+                >
+                  Administración
+                </button>
+                <button
+                  onClick={() => setCurrentView('admin-pqrsf')}
+                  className={`${styles.navButton} ${currentView === 'admin-pqrsf' ? styles.navButtonActive : ''}`}
+                >
+                  PQRSF
+                </button>
+              </>
             )}
           </div>
         </nav>
@@ -416,8 +437,11 @@ const MainLayout = ({ onCreateSolicitud }) => {
               navigateToView={setCurrentView}
             />
           )}
+          {currentView === 'historial' && <SolicitudesHistorial />}
           {currentView === 'financieras' && <SolicitudesFinancierasE />}
           {currentView === 'foro' && <Foro />}
+          {currentView === 'admin' && <AdminSolicitudesManager />}
+          {currentView === 'admin-pqrsf' && <AdminPQRSFManager />}
         </main>
       </div>
     </div>

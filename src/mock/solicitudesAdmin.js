@@ -1,19 +1,39 @@
 const MOCK_SOLICITUDES_ADMIN = [
   {
-    id: 1,
+    id: 1001,
     estudiante: 'María González',
-    tipo: 'Cambio de Carrera',
-    estado: 'En Revisión',
-    fecha: '2023-11-15',
-    descripcion: 'Solicitud de cambio de Ingeniería a Diseño'
+    tipo: 'Petición',
+    estado: 'Pendiente',
+    fecha: '2025-05-20',
+    descripcion: 'Solicito información sobre el proceso de matrícula para el próximo semestre. Radicado: PQRSF-2025-05-00001',
+    numeroRadicado: 'PQRSF-2025-05-00001',
+    tieneAdjuntos: false,
+    archivosAdjuntos: [],
+    respuesta: null
   },
   {
-    id: 2,
+    id: 1002,
     estudiante: 'Carlos Ramírez',
-    tipo: 'Inscripción de Curso',
+    tipo: 'Queja',
+    estado: 'En Revisión',
+    fecha: '2025-05-19',
+    descripcion: 'Queja formal por problemas con el sistema de inscripción de materias. Radicado: PQRSF-2025-05-00002',
+    numeroRadicado: 'PQRSF-2025-05-00002',
+    tieneAdjuntos: false,
+    archivosAdjuntos: [],
+    respuesta: null
+  },
+  {
+    id: 1003,
+    estudiante: 'Ana Martínez',
+    tipo: 'Reclamo',
     estado: 'Pendiente',
-    fecha: '2023-11-10',
-    descripcion: 'Solicitud de inscripción a curso de Programación Avanzada'
+    fecha: '2025-05-18',
+    descripcion: 'Reclamo por calificación incorrecta en la materia de Cálculo III. Radicado: PQRSF-2025-05-00003',
+    numeroRadicado: 'PQRSF-2025-05-00003',
+    tieneAdjuntos: false,
+    archivosAdjuntos: [],
+    respuesta: null
   }
 ];
 

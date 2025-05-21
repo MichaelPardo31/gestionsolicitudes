@@ -4,6 +4,7 @@ import styles from './UdemTheme.module.css';
 const StudentSidebar = ({ activeSection, setActiveSection }) => {
   const sections = [
     { name: 'Solicitudes', icon: '📋' },
+    { name: 'Historial', icon: '📃' },
     { name: 'Chatbot', icon: '🤖' },
     { name: 'Foro', icon: '💬' }
   ];

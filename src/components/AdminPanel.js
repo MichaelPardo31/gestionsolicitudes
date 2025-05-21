@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import RespuestasAutomaticas from './RespuestasAutomaticas';
+import AdminPQRSFManager from './AdminPQRSFManager';
 import styles from './AdminPanel.module.css';
 import themeStyles from './UdemTheme.module.css';
 // Importar logo de la Universidad de Medellín
@@ -151,6 +152,14 @@ const AdminPanel = () => {
           >
             Configuración
           </button>
+          <button
+            onClick={() => setActiveView('pqrsf')}
+            className={`${themeStyles.navButton} ${
+              activeView === 'pqrsf' ? themeStyles.navButtonActive : themeStyles.navButtonInactive
+            }`}
+          >
+            PQRSF
+          </button>
         </div>
       </div>
 
@@ -298,6 +307,14 @@ const AdminPanel = () => {
             <div className={styles.comingSoon}>
               <p>Funcionalidad en desarrollo</p>
             </div>
+          </div>
+        )}
+        
+        {activeView === 'pqrsf' && (
+          <div className={styles.sectionContainer}>
+            <h2 className={styles.sectionTitle}>Gestión de PQRSF</h2>
+            <p className={styles.sectionDescription}>Administra las Peticiones, Quejas, Reclamos, Sugerencias y Felicitaciones.</p>
+            <AdminPQRSFManager />
           </div>
         )}
       </div>
