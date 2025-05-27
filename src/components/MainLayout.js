@@ -2,6 +2,7 @@ import React, { useState, useContext, useEffect, useRef } from 'react';
 import { AuthContext } from '../context/AuthContext';
 import { NotificationsContext } from '../context/NotificationsContext';
 import ChatbotAssistant from './ChatbotAssistant';
+import ChatbotFloat from './ChatbotFloat';
 import SolicitudesManager from './SolicitudesManager';
 import SolicitudesFinancierasE from './SolicitudesFinancierasE';
 import SolicitudesHistorial from './SolicitudesHistorial';
@@ -429,7 +430,12 @@ const MainLayout = ({ onCreateSolicitud }) => {
 
         {/* Contenido principal */}
         <main>
-          {currentView === 'home' && <HomeSection />}
+          {currentView === 'home' && (
+            <>
+              <HomeSection />
+              <ChatbotFloat />
+            </>
+          )}
           {currentView === 'chatbot' && <ChatbotAssistant />}
           {currentView === 'solicitudes' && (
             <SolicitudesManager 
