@@ -18,8 +18,9 @@ const AdminPQRSFManager = () => {
   
   // Estado para almacenar las respuestas rápidas cargadas dinámicamente del mock
   const [respuestasRapidas, setRespuestasRapidas] = useState([]);
+  const [tituloRespuestaRapida, setTituloRespuestaRapida] = useState('');
   
-  // Cargar respuestas rápidas desde el mock
+  // Cargar respuestas rápidas desde el mock y localStorage
   useEffect(() => {
     // Obtener todos los tipos de solicitudes disponibles en el mock
     const tiposSolicitudes = obtenerTiposSolicitudes();
@@ -51,6 +52,18 @@ const AdminPQRSFManager = () => {
         texto: respuesta
       });
     });
+
+    // Cargar respuestas rápidas personalizadas desde localStorage
+    const respuestasPersonalizadas = JSON.parse(localStorage.getItem('respuestasRapidasPersonalizadas') || '[]');
+    
+    // Agregar las respuestas personalizadas al array
+    respuestasPersonalizadas.forEach(respuesta => {
+      todasRespuestas.push({
+        id: respuesta.id,
+        titulo: respuesta.titulo,
+        texto: respuesta.texto
+      });
+    });
     
     // Actualizar el estado con todas las respuestas
     setRespuestasRapidas(todasRespuestas);
@@ -59,6 +72,36 @@ const AdminPQRSFManager = () => {
   // Función para seleccionar una respuesta rápida
   const seleccionarRespuestaRapida = (texto) => {
     setRespuestaTexto(texto);
+  };
+  
+  // Función para guardar una nueva respuesta rápida
+  const guardarRespuestaRapida = () => {
+    if (!respuestaTexto.trim() || !tituloRespuestaRapida.trim()) {
+      setErrorCarga('Por favor ingrese un título y una respuesta');
+      setTimeout(() => setErrorCarga(''), 3000);
+      return;
+    }
+
+    const nuevaRespuesta = {
+      id: Date.now(),
+      titulo: tituloRespuestaRapida,
+      texto: respuestaTexto
+    };
+
+    // Obtener respuestas personalizadas existentes
+    const respuestasPersonalizadas = JSON.parse(localStorage.getItem('respuestasRapidasPersonalizadas') || '[]');
+    
+    // Agregar la nueva respuesta
+    respuestasPersonalizadas.push(nuevaRespuesta);
+    
+    // Guardar en localStorage
+    localStorage.setItem('respuestasRapidasPersonalizadas', JSON.stringify(respuestasPersonalizadas));
+
+    // Actualizar el estado
+    setRespuestasRapidas(prev => [...prev, nuevaRespuesta]);
+    setTituloRespuestaRapida('');
+    setMensajeExito('Respuesta rápida guardada correctamente');
+    setTimeout(() => setMensajeExito(''), 3000);
   };
   
   // Función para cargar solicitudes PQRSF desde localStorage y el servidor
@@ -584,25 +627,26 @@ const AdminPQRSFManager = () => {
                 <p><strong>Estudiante:</strong> {respuestaModal.estudiante}</p>
                 <p><strong>Descripción:</strong> {respuestaModal.descripcion}</p>
               </div>
-              <div className={styles.respuestaForm}>
-                <div className={styles.respuestasRapidas}>
-                  <div className={styles.respuestasRapidasHeader}>
-                    <FaLightbulb /> <span>Respuestas rápidas:</span>
-                  </div>
-                  <div className={styles.respuestasRapidasList}>
-                    {respuestasRapidas.map(respuesta => (
-                      <button
-                        key={respuesta.id}
-                        className={styles.respuestaRapidaButton}
-                        onClick={() => seleccionarRespuestaRapida(respuesta.texto)}
-                        disabled={enviandoRespuesta}
-                      >
-                        {respuesta.titulo}
-                      </button>
-                    ))}
-                  </div>
+              
+              <div className={styles.respuestasRapidas}>
+                <div className={styles.respuestasRapidasHeader}>
+                  <FaLightbulb /> <span>Respuestas rápidas:</span>
                 </div>
-                
+                <div className={styles.respuestasRapidasList}>
+                  {respuestasRapidas.map(respuesta => (
+                    <button
+                      key={respuesta.id}
+                      className={styles.respuestaRapidaButton}
+                      onClick={() => seleccionarRespuestaRapida(respuesta.texto)}
+                      disabled={enviandoRespuesta}
+                    >
+                      {respuesta.titulo}
+                    </button>
+                  ))}
+                </div>
+              </div>
+              
+              <div className={styles.respuestaForm}>
                 <label>Respuesta:</label>
                 <textarea 
                   value={respuestaTexto} 
@@ -611,6 +655,25 @@ const AdminPQRSFManager = () => {
                   rows={5}
                   disabled={enviandoRespuesta}
                 />
+                
+                {/* Formulario para guardar nueva respuesta rápida */}
+                <div className={styles.guardarRespuestaRapida}>
+                  <input
+                    type="text"
+                    value={tituloRespuestaRapida}
+                    onChange={(e) => setTituloRespuestaRapida(e.target.value)}
+                    placeholder="Título para la respuesta rápida"
+                    className={styles.inputTitulo}
+                  />
+                  <button
+                    className={styles.guardarButton}
+                    onClick={guardarRespuestaRapida}
+                    disabled={!respuestaTexto.trim() || !tituloRespuestaRapida.trim()}
+                  >
+                    Guardar como respuesta rápida
+                  </button>
+                </div>
+                
                 <button 
                   className={styles.sendButton}
                   onClick={handleEnviarRespuesta}
