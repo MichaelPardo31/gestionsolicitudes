@@ -70,7 +70,14 @@ const SolicitudesManager = ({ navigateToView }) => {
         tipo: 'formulario',
         imagen: programasImg,
         descripcion: 'Consulta información sobre programas'
-      }
+      },
+      { 
+        titulo: 'Consejo Academico', 
+        tipo: 'enlace', 
+        imagen: pagoImg,
+        link: '@https://app.udem.edu.co/Peticiones/ ',
+        descripcion: 'Consulta tus peticiones ante el consejo academico'
+      },
     ],
     administrativas: [
       { 
